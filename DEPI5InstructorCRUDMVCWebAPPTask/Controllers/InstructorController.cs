@@ -9,9 +9,9 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
 {
     public class InstructorController : Controller
     {
-        private readonly CourseMVCAppDbContext _context;
+        private readonly InstructorCRUDMVCAppDbContext _context;
 
-        public InstructorController(CourseMVCAppDbContext context)
+        public InstructorController(InstructorCRUDMVCAppDbContext context)
         {
             _context = context;
         }

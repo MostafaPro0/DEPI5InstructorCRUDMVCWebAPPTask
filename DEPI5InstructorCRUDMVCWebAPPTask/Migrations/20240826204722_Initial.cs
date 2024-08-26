@@ -5,48 +5,11 @@
 namespace DEPI5InstructorCRUDMVCWebAPPTask.Migrations
 {
     /// <inheritdoc />
-    public partial class AddModels : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "ImgPath",
-                table: "Trainees");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Trainees",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(50)",
-                oldMaxLength: 50);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Address",
-                table: "Trainees",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Grade",
-                table: "Trainees",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Img",
-                table: "Trainees",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
             migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
@@ -59,6 +22,22 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trainees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Grade = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trainees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -164,41 +143,13 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Migrations
                 name: "Courses");
 
             migrationBuilder.DropTable(
+                name: "Trainees");
+
+            migrationBuilder.DropTable(
                 name: "Instructors");
 
             migrationBuilder.DropTable(
                 name: "Departments");
-
-            migrationBuilder.DropColumn(
-                name: "Grade",
-                table: "Trainees");
-
-            migrationBuilder.DropColumn(
-                name: "Img",
-                table: "Trainees");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Trainees",
-                type: "nvarchar(50)",
-                maxLength: 50,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Address",
-                table: "Trainees",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ImgPath",
-                table: "Trainees",
-                type: "nvarchar(max)",
-                nullable: true);
         }
     }
 }

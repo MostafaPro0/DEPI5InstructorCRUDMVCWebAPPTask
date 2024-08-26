@@ -11,7 +11,7 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<CourseMVCAppDbContext>(options =>
+            builder.Services.AddDbContext<InstructorCRUDMVCAppDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();
 

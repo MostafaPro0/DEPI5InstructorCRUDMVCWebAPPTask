@@ -9,21 +9,21 @@ using DEPI5InstructorCRUDMVCWebAPPTask;
 
 namespace DEPI5InstructorCRUDMVCWebAPPTask.Contexts
 {
-    public class CourseMVCAppDbContext:DbContext 
+    public class InstructorCRUDMVCAppDbContext:DbContext 
     {
 
-        public CourseMVCAppDbContext()
+        public InstructorCRUDMVCAppDbContext()
         {
 
         }
-        public CourseMVCAppDbContext(DbContextOptions<CourseMVCAppDbContext>options):base(options)
+        public InstructorCRUDMVCAppDbContext(DbContextOptions<InstructorCRUDMVCAppDbContext>options):base(options)
         {
             
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(LocalDb)\MSSQLLocalDB; Database=CourseMVCApp;Trusted_Connection=true;");
+            optionsBuilder.UseSqlServer(@"Server=(LocalDb)\MSSQLLocalDB; Database=InstructorCRUDMVCApp;Trusted_Connection=true;");
             base.OnConfiguring(optionsBuilder);
         }
         public DbSet<Department> Departments { get; set; }

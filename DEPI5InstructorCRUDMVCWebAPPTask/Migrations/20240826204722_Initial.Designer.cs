@@ -3,16 +3,19 @@ using DEPI5InstructorCRUDMVCWebAPPTask.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace DEPI5InstructorCRUDMVCWebAPPTask.Migrations
 {
-    [DbContext(typeof(CourseMVCAppDbContext))]
-    partial class CourseMVCAppDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(InstructorCRUDMVCAppDbContext))]
+    [Migration("20240826204722_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
