@@ -1,5 +1,5 @@
 ﻿using DEPI5InstructorCRUDMVCWebAPPTask.Contexts;
-using DEPI5InstructorCRUDMVCWebAPPTask.Models;  // Ensure the correct namespace for your Instructor model
+using DEPI5InstructorCRUDMVCWebAPPTask.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -7,29 +7,26 @@ using System.Threading.Tasks;
 
 namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
 {
-    public class InstructorController : Controller
+    public class DepartmentController : Controller
     {
         private readonly InstructorCRUDMVCAppDbContext _context;
 
-        public InstructorController(InstructorCRUDMVCAppDbContext context)
+        public DepartmentController(InstructorCRUDMVCAppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Instructors
+        // GET: Departments
         public async Task<IActionResult> Index()
         {
-            var instructors = await _context.Instructors
-                .Include(i => i.Department)
-                .Include(i => i.Courses)
-                .ThenInclude(c => c.CrsResults)
-                .ThenInclude(cr => cr.Trainee)
+            var departments = await _context.Departments
+                .Include(i => i.Instructors)
                 .ToListAsync();
 
-            return View(instructors);
+            return View(departments);
         }
 
-        // GET: Instructors/Details/5
+        // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,39 +34,39 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructors
-                .Include(i => i.Department)
+            var department = await _context.Departments
+                .Include(i => i.Instructors)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (instructor == null)
+            if (department == null)
             {
                 return NotFound();
             }
 
-            return View(instructor);
+            return View(department);
         }
 
-        // GET: Instructors/Create
+        // GET: Departments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Instructors/Create
+        // POST: Departments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Instructor instructor)
+        public async Task<IActionResult> Create([Bind("Id,Name,ManagerName")] Department department)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(instructor);
+                _context.Add(department);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(instructor);
+            return View(department);
         }
 
-        // GET: Instructors/Edit/5
+        // GET: Departments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,20 +74,20 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructors.FindAsync(id);
-            if (instructor == null)
+            var department = await _context.Departments.FindAsync(id);
+            if (department == null)
             {
                 return NotFound();
             }
-            return View(instructor);
+            return View(department);
         }
 
-        // POST: Instructors/Edit/5
+        // POST: Departments/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Instructor instructor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ManagerName")] Department department)
         {
-            if (id != instructor.Id)
+            if (id != department.Id)
             {
                 return NotFound();
             }
@@ -99,12 +96,12 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
             {
                 try
                 {
-                    _context.Update(instructor);
+                    _context.Update(department);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InstructorExists(instructor.Id))
+                    if (!DepartmentExists(department.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +112,10 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(instructor);
+            return View(department);
         }
 
-        // GET: Instructors/Delete/5
+        // GET: Departments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,31 +123,31 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructors
+            var department = await _context.Departments
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (instructor == null)
+            if (department == null)
             {
                 return NotFound();
             }
 
-            return View(instructor);
+            return View(department);
         }
 
-        // POST: Instructors/Delete/5
+        // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var instructor = await _context.Instructors.FindAsync(id);
-            _context.Instructors.Remove(instructor);
+            var department = await _context.Departments.FindAsync(id);
+            _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InstructorExists(int id)
+        private bool DepartmentExists(int id)
         {
-            return _context.Instructors.Any(e => e.Id == id);
+            return _context.Departments.Any(e => e.Id == id);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DEPI5InstructorCRUDMVCWebAPPTask.Models
         public string Name { get; set; }
         public string ManagerName { get; set; }
 
-        public ICollection<Instructor> Instructors { get; set; }
+        public ICollection<Instructor>? Instructors { get; set; }
     }
 }
 
